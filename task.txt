@@ -1,0 +1,13 @@
+import pandas as pd 
+import matplotlib.pyplot as plt 
+
+#График 1. Топ 15 фильмов 2016 года и позже по среднему рейтингу (голосам) 
+
+data=pd.read_csv('C:/Users/Katya/Desktop/tmdb_5000_movies.csv') 
+data_filtered=data[data['release_date']>'2016-01-01'].sort_values('vote_average').head(15) 
+plt.barh(data_filtered['title'], data_filtered['vote_average']) 
+
+#График 2. Круговая диаграмма, что бы понять на каком языке больше всего фильмов. 
+
+data_sorted=data.groupby([data.index,'original_language']).count() 
+data_sorted.unstack('original_language']).plot(kind='pie', y=data_sorted['id'])
